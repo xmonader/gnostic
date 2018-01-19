@@ -102,6 +102,10 @@ func generateOpenAPIModel(version string) error {
 		input = "discovery.json"
 		filename = "discovery"
 		protoPackageName = "discovery.v1"
+	case "apis":
+		input = "apis.json"
+		filename = "apisjson"
+		protoPackageName = "apisjson.v1"
 	default:
 		return fmt.Errorf("Unknown OpenAPI version %s", version)
 	}
@@ -147,6 +151,9 @@ func generateOpenAPIModel(version string) error {
 			"ResponseValue": "ResponseCode",
 		}
 	case "discovery":
+		cc.TypeNameOverrides = map[string]string{}
+		cc.PropertyNameOverrides = map[string]string{}
+	case "apis":
 		cc.TypeNameOverrides = map[string]string{}
 		cc.PropertyNameOverrides = map[string]string{}
 	default:
@@ -232,6 +239,8 @@ func main() {
 			openapiVersion = "v3"
 		} else if arg == "--discovery" {
 			openapiVersion = "discovery"
+		} else if arg == "--apis" {
+			openapiVersion = "apis"
 		} else if arg == "--extension" {
 			generateExtensions = true
 			break

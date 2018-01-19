@@ -1,0 +1,181 @@
+{
+  "title": "A JSON Schema for the APIs.json Format.",
+  "id": "https://raw.githubusercontent.com/googleapis/gnostic/apisjson/apisjson/apis.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "description": "This is the root document object of the APIs.json Format.",
+  "required": [
+    "name",
+    "description",
+	"url",
+	"created",
+	"modified",
+	"SpecificationVersion"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+	  "description": "text string of human readable name for the collection of APIs"
+    },
+    "description": {
+      "type": "string",
+	  "description": "text human readable description of the collection of APIs"
+    },
+    "image": {
+      "type": "string",
+	  "description": "web URL leading to an image to be used to represent the collection of APIs defined in this file"
+    },
+    "url": {
+      "type": "string",
+	  "description": "Web URL indicating the location of the latest version of this file"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+	  "description": "this is a list of descriptive strings which identify the contents of the APIs.json file. Represented as an array"
+    },
+    "created": {
+      "type": "string"
+    },
+    "modified": {
+      "type": "string"
+    },
+    "SpecificationVersion": {
+      "type": "string"
+    },
+    "apis": {
+      "type": "array",
+      "items": {
+          "$ref": "#/definitions/api"
+      }
+    },
+    "include": {
+      "type": "array",
+      "items": {
+          "$ref": "#/definitions/include"
+      }
+    },
+    "maintainers": {
+      "type": "array",
+      "items": {
+          "$ref": "#/definitions/maintainer"
+      }
+    }
+  },
+  "definitions": {
+    "api": {
+      "type": "object",
+      "description": "An API description.",
+      "required": [
+        "name",
+        "description"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "humanURL": {
+          "type": "string"
+        },
+        "baseURL": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "type": "array",
+		  "items": {
+			  "$ref": "#/definitions/property"
+		  }
+        },
+        "contact": {
+		  "type": "array",
+		  "items": {
+            "$ref": "#/definitions/maintainer"
+	      }
+	    }
+      }
+    },
+    "include": {
+      "type": "object",
+      "required": [
+        "name",
+        "url"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "maintainer": {
+      "type": "object",
+      "properties": {
+        "fn": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "org": {
+          "type": "string"
+        },
+        "adr": {
+          "type": "string"
+        },
+        "tel": {
+          "type": "string"
+        },
+        "x-twitter": {
+          "type": "string"
+        },
+        "x-github": {
+          "type": "string"
+        },
+        "photo": {
+          "type": "string"
+        },
+        "vcard": {
+          "type": "string"
+        }
+      }
+    },
+	"property": {
+		"type": "object",
+		"properties": {
+			"type": {
+				"type": "string"
+			},
+			"url": {
+				"type": "string"
+			},
+			"value": {
+				"type": "string"
+			}
+		}
+	}
+  }
+}

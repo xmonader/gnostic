@@ -29,6 +29,8 @@ func camelCaseToSnakeCase(input string) string {
 				out += "_"
 			}
 			out += string(runeValue - 'A' + 'a')
+		} else if runeValue == '-' {
+			out += "_"
 		} else {
 			out += string(runeValue)
 		}
@@ -38,6 +40,8 @@ func camelCaseToSnakeCase(input string) string {
 
 func snakeCaseToCamelCase(input string) string {
 	out := ""
+
+	input = strings.Replace(input, "-", "_", -1)
 
 	words := strings.Split(input, "_")
 

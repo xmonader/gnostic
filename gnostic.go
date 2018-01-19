@@ -45,6 +45,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/googleapis/gnostic/OpenAPIv2"
 	"github.com/googleapis/gnostic/OpenAPIv3"
+	"github.com/googleapis/gnostic/apisjson"
 	"github.com/googleapis/gnostic/compiler"
 	"github.com/googleapis/gnostic/discovery"
 	"github.com/googleapis/gnostic/jsonwriter"
@@ -58,6 +59,7 @@ const ( // Source Format
 	SourceFormatOpenAPI2  = 2
 	SourceFormatOpenAPI3  = 3
 	SourceFormatDiscovery = 4
+	SourceFormatAPIsJSON  = 5
 )
 
 // Determine the version of an OpenAPI description read from JSON or YAML.
@@ -77,6 +79,10 @@ func getOpenAPIVersionFromInfo(info interface{}) int {
 	kind, ok := compiler.MapValueForKey(m, "kind").(string)
 	if ok && kind == "discovery#restDescription" {
 		return SourceFormatDiscovery
+	}
+	specificationVersion, ok := compiler.MapValueForKey(m, "specificationVersion").(string)
+	if ok && specificationVersion != "" {
+		return SourceFormatAPIsJSON
 	}
 	return SourceFormatUnknown
 }
@@ -160,6 +166,8 @@ func (p *pluginCall) perform(document proto.Message, sourceFormat int, sourceNam
 			}
 		case SourceFormatDiscovery:
 			request.AddModel("discovery.v1.Document", document)
+		case SourceFormatAPIsJSON:
+			request.AddModel("apisjson.v1.Document", document)
 		default:
 		}
 
@@ -388,8 +396,14 @@ func (g *Gnostic) readOpenAPIText(bytes []byte) (message proto.Message, err erro
 			return nil, err
 		}
 		message = document
-	} else {
+	} else if g.sourceFormat == SourceFormatDiscovery {
 		document, err := discovery_v1.NewDocument(info, compiler.NewContextWithExtensions("$root", nil, &g.extensionHandlers))
+		if err != nil {
+			return nil, err
+		}
+		message = document
+	} else if g.sourceFormat == SourceFormatAPIsJSON {
+		document, err := apisjson_v1.NewDocument(info, compiler.NewContextWithExtensions("$root", nil, &g.extensionHandlers))
 		if err != nil {
 			return nil, err
 		}
