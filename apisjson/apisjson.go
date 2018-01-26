@@ -170,13 +170,13 @@ func NewDocument(in interface{}, context *compiler.Context) (*Document, error) {
 		message := fmt.Sprintf("has unexpected value: %+v (%T)", in, in)
 		errors = append(errors, compiler.NewError(context, message))
 	} else {
-		requiredKeys := []string{"SpecificationVersion", "created", "description", "modified", "name", "url"}
+		requiredKeys := []string{"created", "description", "modified", "name", "specificationVersion", "url"}
 		missingKeys := compiler.MissingKeysInMap(m, requiredKeys)
 		if len(missingKeys) > 0 {
 			message := fmt.Sprintf("is missing required %s: %+v", compiler.PluralProperties(len(missingKeys)), strings.Join(missingKeys, ", "))
 			errors = append(errors, compiler.NewError(context, message))
 		}
-		allowedKeys := []string{"SpecificationVersion", "apis", "created", "description", "image", "include", "maintainers", "modified", "name", "tags", "url"}
+		allowedKeys := []string{"apis", "created", "description", "image", "include", "maintainers", "modified", "name", "specificationVersion", "tags", "url"}
 		var allowedPatterns []*regexp.Regexp
 		invalidKeys := compiler.InvalidKeysInMap(m, allowedKeys, allowedPatterns)
 		if len(invalidKeys) > 0 {
@@ -249,11 +249,11 @@ func NewDocument(in interface{}, context *compiler.Context) (*Document, error) {
 			}
 		}
 		// string specification_version = 8;
-		v8 := compiler.MapValueForKey(m, "SpecificationVersion")
+		v8 := compiler.MapValueForKey(m, "specificationVersion")
 		if v8 != nil {
 			x.SpecificationVersion, ok = v8.(string)
 			if !ok {
-				message := fmt.Sprintf("has unexpected value for SpecificationVersion: %+v (%T)", v8, v8)
+				message := fmt.Sprintf("has unexpected value for specificationVersion: %+v (%T)", v8, v8)
 				errors = append(errors, compiler.NewError(context, message))
 			}
 		}
@@ -362,19 +362,19 @@ func NewMaintainer(in interface{}, context *compiler.Context) (*Maintainer, erro
 		message := fmt.Sprintf("has unexpected value: %+v (%T)", in, in)
 		errors = append(errors, compiler.NewError(context, message))
 	} else {
-		allowedKeys := []string{"adr", "email", "fn", "org", "photo", "tel", "url", "vcard", "x-github", "x-twitter"}
+		allowedKeys := []string{"FN", "adr", "email", "org", "photo", "tel", "url", "vcard", "x-github", "x-twitter"}
 		var allowedPatterns []*regexp.Regexp
 		invalidKeys := compiler.InvalidKeysInMap(m, allowedKeys, allowedPatterns)
 		if len(invalidKeys) > 0 {
 			message := fmt.Sprintf("has invalid %s: %+v", compiler.PluralProperties(len(invalidKeys)), strings.Join(invalidKeys, ", "))
 			errors = append(errors, compiler.NewError(context, message))
 		}
-		// string fn = 1;
-		v1 := compiler.MapValueForKey(m, "fn")
+		// string f_n = 1;
+		v1 := compiler.MapValueForKey(m, "FN")
 		if v1 != nil {
 			x.Fn, ok = v1.(string)
 			if !ok {
-				message := fmt.Sprintf("has unexpected value for fn: %+v (%T)", v1, v1)
+				message := fmt.Sprintf("has unexpected value for FN: %+v (%T)", v1, v1)
 				errors = append(errors, compiler.NewError(context, message))
 			}
 		}
@@ -698,7 +698,7 @@ func (m *Document) ToRawInfo() interface{} {
 		info = append(info, yaml.MapItem{Key: "modified", Value: m.Modified})
 	}
 	if m.SpecificationVersion != "" {
-		info = append(info, yaml.MapItem{Key: "SpecificationVersion", Value: m.SpecificationVersion})
+		info = append(info, yaml.MapItem{Key: "specificationVersion", Value: m.SpecificationVersion})
 	}
 	if len(m.Apis) != 0 {
 		items := make([]interface{}, 0)
@@ -743,7 +743,7 @@ func (m *Include) ToRawInfo() interface{} {
 func (m *Maintainer) ToRawInfo() interface{} {
 	info := yaml.MapSlice{}
 	if m.Fn != "" {
-		info = append(info, yaml.MapItem{Key: "fn", Value: m.Fn})
+		info = append(info, yaml.MapItem{Key: "FN", Value: m.Fn})
 	}
 	if m.Email != "" {
 		info = append(info, yaml.MapItem{Key: "email", Value: m.Email})

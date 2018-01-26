@@ -10,7 +10,7 @@
 	"url",
 	"created",
 	"modified",
-	"SpecificationVersion"
+	"specificationVersion"
   ],
   "additionalProperties": false,
   "properties": {
@@ -43,7 +43,7 @@
     "modified": {
       "type": "string"
     },
-    "SpecificationVersion": {
+    "specificationVersion": {
       "type": "string"
     },
     "apis": {
@@ -131,7 +131,7 @@
     "maintainer": {
       "type": "object",
       "properties": {
-        "fn": {
+        "FN": {
           "type": "string"
         },
         "email": {

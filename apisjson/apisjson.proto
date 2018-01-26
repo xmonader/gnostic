@@ -84,7 +84,7 @@ message Include {
 }
 
 message Maintainer {
-  string fn = 1;
+  string f_n = 1;
   string email = 2;
   string url = 3;
   string org = 4;
