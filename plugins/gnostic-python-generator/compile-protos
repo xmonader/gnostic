@@ -28,20 +28,23 @@ PROTOS=(
 )
 
 # remove old compiled pb files
-rm -rf Sources/Gnostic/*.pb.py
-
+rm -rf Sgnostic
 # remove any prior compilations
-rm -rf Sources/Gnostic/github.com
+rm -rf gnostic
+rm -rf gnostic_tmp
+mkdir gnostic
+mkdir gnostic_tmp
 
 # compile protos
 for proto in "${PROTOS[@]}" 
 do
   echo "COMPILING $proto"
   protoc $GNOSTIC/$proto \
-	--python_out=gnostic --proto_path=$GOPATH/src
+	--python_out=gnostic_tmp --proto_path=$GOPATH/src
 
 # relocate compiled protos
-# find Sources/Gnostic/github.com -name "*.pb.py" -exec mv {} gnostic \;
+find gnostic_tmp -name "*.py" -exec mv {} gnostic \;
+touch gnostic/__init__.py
 
 # remove scaffolding of compilation
 # rm -rf Sources/Gnostic/github.com
