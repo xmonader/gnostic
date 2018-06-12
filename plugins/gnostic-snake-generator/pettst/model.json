@@ -1,0 +1,194 @@
+{
+  "name": "OpenAPI Petstore",
+  "types": [
+    {
+      "name": "Pet",
+      "description": "implements the service definition of Pet",
+      "fields": [
+        {
+          "name": "id",
+          "type": "integer",
+          "format": "int64",
+          "nativeType": "int",
+          "fieldName": "id",
+          "parameterName": "id",
+          "serialize": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "nativeType": "str",
+          "fieldName": "name",
+          "parameterName": "name",
+          "serialize": true
+        },
+        {
+          "name": "tag",
+          "type": "string",
+          "nativeType": "str",
+          "fieldName": "tag",
+          "parameterName": "tag",
+          "serialize": true
+        }
+      ],
+      "typeName": "Pet"
+    },
+    {
+      "name": "Pets",
+      "description": "implements the service definition of Pets",
+      "typeName": "Pets"
+    },
+    {
+      "name": "Error",
+      "description": "implements the service definition of Error",
+      "fields": [
+        {
+          "name": "code",
+          "type": "integer",
+          "format": "int32",
+          "nativeType": "int",
+          "fieldName": "code",
+          "parameterName": "code",
+          "serialize": true
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "nativeType": "str",
+          "fieldName": "message",
+          "parameterName": "message",
+          "serialize": true
+        }
+      ],
+      "typeName": "Error"
+    },
+    {
+      "name": "ListPetsParameters",
+      "description": "ListPetsParameters holds parameters to ListPets",
+      "fields": [
+        {
+          "name": "limit",
+          "type": "integer",
+          "format": "int32",
+          "position": 3,
+          "nativeType": "int",
+          "fieldName": "limit",
+          "parameterName": "limit",
+          "serialize": true
+        }
+      ],
+      "typeName": "ListPetsParameters"
+    },
+    {
+      "name": "ListPetsResponses",
+      "description": "ListPetsResponses holds responses of ListPets",
+      "fields": [
+        {
+          "name": "200",
+          "type": "Pets",
+          "kind": 3,
+          "nativeType": "Pets",
+          "fieldName": "OK",
+          "parameterName": "200"
+        },
+        {
+          "name": "default",
+          "type": "Error",
+          "kind": 3,
+          "nativeType": "Error",
+          "fieldName": "default",
+          "parameterName": "default"
+        }
+      ],
+      "typeName": "ListPetsResponses"
+    },
+    {
+      "name": "CreatePetsResponses",
+      "description": "CreatePetsResponses holds responses of CreatePets",
+      "fields": [
+        {
+          "name": "default",
+          "type": "Error",
+          "kind": 3,
+          "nativeType": "Error",
+          "fieldName": "default",
+          "parameterName": "default"
+        }
+      ],
+      "typeName": "CreatePetsResponses"
+    },
+    {
+      "name": "ShowPetByIdParameters",
+      "description": "ShowPetByIdParameters holds parameters to ShowPetById",
+      "fields": [
+        {
+          "name": "petId",
+          "type": "string",
+          "position": 4,
+          "nativeType": "str",
+          "fieldName": "petId",
+          "parameterName": "petId",
+          "serialize": true
+        }
+      ],
+      "typeName": "ShowPetByIdParameters"
+    },
+    {
+      "name": "ShowPetByIdResponses",
+      "description": "ShowPetByIdResponses holds responses of ShowPetById",
+      "fields": [
+        {
+          "name": "200",
+          "type": "Pets",
+          "kind": 3,
+          "nativeType": "Pets",
+          "fieldName": "OK",
+          "parameterName": "200"
+        },
+        {
+          "name": "default",
+          "type": "Error",
+          "kind": 3,
+          "nativeType": "Error",
+          "fieldName": "default",
+          "parameterName": "default"
+        }
+      ],
+      "typeName": "ShowPetByIdResponses"
+    }
+  ],
+  "methods": [
+    {
+      "operation": "listPets",
+      "path": "/pets",
+      "method": "GET",
+      "name": "ListPets",
+      "handlerName": "HandleListPets",
+      "processorName": "ListPets",
+      "clientName": "ListPets",
+      "parametersTypeName": "ListPetsParameters",
+      "responsesTypeName": "ListPetsResponses"
+    },
+    {
+      "operation": "createPets",
+      "path": "/pets",
+      "method": "POST",
+      "name": "CreatePets",
+      "handlerName": "HandleCreatePets",
+      "processorName": "CreatePets",
+      "clientName": "CreatePets",
+      "responsesTypeName": "CreatePetsResponses"
+    },
+    {
+      "operation": "showPetById",
+      "path": "/pets/{petId}",
+      "method": "GET",
+      "name": "ShowPetById",
+      "handlerName": "HandleShowPetById",
+      "processorName": "ShowPetById",
+      "clientName": "ShowPetById",
+      "parametersTypeName": "ShowPetByIdParameters",
+      "responsesTypeName": "ShowPetByIdResponses"
+    }
+  ]
+}

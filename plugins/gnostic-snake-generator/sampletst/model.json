@@ -1,0 +1,122 @@
+{
+  "name": "sample.io",
+  "types": [
+    {
+      "name": "APIError",
+      "description": "implements the service definition of APIError",
+      "fields": [
+        {
+          "name": "code",
+          "type": "integer",
+          "format": "int",
+          "nativeType": "int",
+          "fieldName": "Code",
+          "parameterName": "code",
+          "serialize": true
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "nativeType": "str",
+          "fieldName": "Message",
+          "parameterName": "message",
+          "serialize": true
+        }
+      ],
+      "typeName": "APIError"
+    },
+    {
+      "name": "Sample",
+      "description": "implements the service definition of Sample",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "nativeType": "str",
+          "fieldName": "Id",
+          "parameterName": "id",
+          "serialize": true
+        },
+        {
+          "name": "thing",
+          "type": "object",
+          "kind": 1,
+          "nativeType": "object",
+          "fieldName": "Thing",
+          "parameterName": "thing",
+          "serialize": true
+        },
+        {
+          "name": "count",
+          "type": "integer",
+          "format": "int32",
+          "nativeType": "int",
+          "fieldName": "Count",
+          "parameterName": "count",
+          "serialize": true
+        }
+      ],
+      "typeName": "Sample"
+    },
+    {
+      "name": "GetSampleParameters",
+      "description": "GetSampleParameters holds parameters to GetSample",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "position": 4,
+          "nativeType": "str",
+          "fieldName": "Id",
+          "parameterName": "id",
+          "serialize": true
+        }
+      ],
+      "typeName": "GetSampleParameters"
+    },
+    {
+      "name": "GetSampleResponses",
+      "description": "GetSampleResponses holds responses of GetSample",
+      "fields": [
+        {
+          "name": "200",
+          "type": "Sample",
+          "kind": 3,
+          "nativeType": "Sample",
+          "fieldName": "OK",
+          "parameterName": "200"
+        },
+        {
+          "name": "401",
+          "type": "APIError",
+          "kind": 3,
+          "nativeType": "APIError",
+          "fieldName": "Code401",
+          "parameterName": "401"
+        },
+        {
+          "name": "404",
+          "type": "APIError",
+          "kind": 3,
+          "nativeType": "APIError",
+          "fieldName": "Code404",
+          "parameterName": "404"
+        }
+      ],
+      "typeName": "GetSampleResponses"
+    }
+  ],
+  "methods": [
+    {
+      "operation": "GetSample",
+      "path": "/sample/{id}",
+      "method": "GET",
+      "name": "GetSample",
+      "handlerName": "HandleGetSample",
+      "processorName": "GetSample",
+      "clientName": "GetSample",
+      "parametersTypeName": "GetSampleParameters",
+      "responsesTypeName": "GetSampleResponses"
+    }
+  ]
+}
